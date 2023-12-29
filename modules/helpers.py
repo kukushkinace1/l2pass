@@ -8,7 +8,7 @@ import random
 from tqdm import tqdm
 from time import sleep
 
-w3_eth = Web3(Web3.HTTPProvider('https://rpc.ankr.com/eth'))
+w3_eth = Web3(Web3.HTTPProvider(random.choice(DATA['ethereum']['rpc'])))
 
 
 def sign_and_check_tx(chain_w3, swap_txn, account):
@@ -44,12 +44,16 @@ def sign_and_check_tx(chain_w3, swap_txn, account):
 
 
 def cheker_gwei():
-    max_gwei = MAX_GWEI * 10 ** 9
-    if w3_eth.eth.gas_price > max_gwei:
-        logger.info('Газ большой, пойду спать')
-        while w3_eth.eth.gas_price > max_gwei:
-            time.sleep(60)
-        logger.info('Газ в норме. Продолжаю работу')
+    try:
+        max_gwei = MAX_GWEI * 10 ** 9
+        if w3_eth.eth.gas_price > max_gwei:
+            logger.info('Газ большой, пойду спать')
+            while w3_eth.eth.gas_price > max_gwei:
+                time.sleep(60)
+            logger.info('Газ в норме. Продолжаю работу')
+    except:
+        w3_eth = Web3(Web3.HTTPProvider(random.choice(DATA['ethereum']['rpc'])))
+        cheker_gwei()
 
 
 def get_web3(chain):
