@@ -7,7 +7,11 @@ ZERO_ADDRESS = 0x0000000000000000000000000000000000000000
 L2PASS_CONTRACT = '0x222228060E7Efbb1D78BB5D454581910e3922222'
 L2PASS_ABI = json.load(open('./abis/refuel.json'))
 
-MINT_CONTRACT = '0x0000049F63Ef0D60aBE49fdD8BEbfa5a68822222'
+MINT_CONTRACT = {
+    'all':       '0x0000049F63Ef0D60aBE49fdD8BEbfa5a68822222',
+    'polygon':   '0x042002711e4d7A7Fc486742a85dBf096beeb0420',
+    'zksync':    '0x8582525114212C2815F13d96Ed5158553287a166',
+}
 MINT_ABI = json.load(open('./abis/mint.json'))
 
 LAYERZERO_CHAINS_ID = {
@@ -39,10 +43,11 @@ LAYERZERO_CHAINS_ID = {
 
 
 DATA = {
+    'zksync':       {'rpc': ['https://zksync-era.blockpi.network/v1/rpc/public'],  'scan': 'https://explorer.zksync.io/tx',        'token': 'ETH','chain_id': 324},
     'ethereum':     {'rpc': ['https://rpc.ankr.com/eth'],       'scan': 'https://etherscan.io/tx',              'token': 'ETH', 'chain_id': 1},
     'optimism':     {'rpc': ['https://rpc.ankr.com/optimism'],  'scan': 'https://optimistic.etherscan.io/tx',   'token': 'ETH', 'chain_id': 10},
     'bsc':          {'rpc': ['https://rpc.ankr.com/bsc'],       'scan': 'https://bscscan.com/tx',               'token': 'BNB', 'chain_id': 56},
-    'polygon':      {'rpc': ['https://rpc.ankr.com/polygon', 'https://endpoints.omniatech.io/v1/matic/mainnet/public'],   'scan': 'https://polygonscan.com/tx',           'token': 'MATIC','chain_id': 137},
+    'polygon':      {'rpc': ['https://rpc.ankr.com/polygon'],   'scan': 'https://polygonscan.com/tx',           'token': 'MATIC','chain_id': 137},
     'polygon zkevm':{'rpc': ['https://zkevm-rpc.com'],          'scan': 'https://zkevm.polygonscan.com/tx',     'token': 'ETH', 'chain_id': 1101},
     'arbitrum':     {'rpc': ['https://rpc.ankr.com/arbitrum'],  'scan': 'https://arbiscan.io/tx',               'token': 'ETH', 'chain_id': 42161},
     'avalanche':    {'rpc': ['https://rpc.ankr.com/avalanche'], 'scan': 'https://snowtrace.io/tx',              'token': 'AVAX','chain_id': 43114},

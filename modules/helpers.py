@@ -8,6 +8,7 @@ import random
 from tqdm import tqdm
 from time import sleep
 
+
 def sign_and_check_tx(chain_w3, swap_txn, account):
     i = 0
     while i <= RETRY:

@@ -32,17 +32,18 @@ def from_chain_balance(account, mint: bool):
         attemp = 0
         while Fail and attemp < 5:
             attemp += 1
+            rpc = random.choice(DATA[chain]['rpc'])
             try:
                 min_nativ = MIN_NATIV[chain] * 10 ** 18
                 if mint:
                     min_nativ = int(min_nativ * 3)
-                w3 = Web3(Web3.HTTPProvider(random.choice(DATA[chain]['rpc'])))
+                w3 = Web3(Web3.HTTPProvider(rpc))
                 balance = w3.eth.get_balance(account.address)
                 Fail = False
                 if balance > min_nativ:
                     FROM_CHAINS_RETURN.append(chain)
             except:
-                logger.warning(f'{chain} проблемы с рпц, попробую другую, если она есть спустя минуту')
+                logger.warning(f'{chain} : {rpc} проблемы с рпц, попробую другую, если она есть спустя минуту')
                 time.sleep(60)
                 pass
 
@@ -67,6 +68,10 @@ def refuel(accounts):
                 logger.warning(f'[{account.address}] Нет сетей с минимальным балансом, пропускаю кошелек....')
                 continue
             to_chain = random.choice(L2PASS_REFUEL_LIST[from_chain])
+
+            if from_chain == 'zksync':
+                logger.warning(f'[{account.address}] Пока что нет рефула из ZkSync :(')
+                continue
 
             if (current_tranz + 1) > random.randint(COUNT_TX[0], COUNT_TX[1]):  # проверка на кол-во
                 continue
@@ -170,8 +175,14 @@ def mint(from_chain, to_chain, private_key, current_account, all_accounts):
         module_str = f'Минт и бридж {from_chain} => {to_chain}'
         logger.info(f'[{current_account}/{all_accounts}][{wallet}] {module_str}')
 
-        contract = web3.eth.contract(address=Web3.to_checksum_address(
-            MINT_CONTRACT), abi=MINT_ABI)
+        if from_chain == 'polygon':
+            new_mint_contract = MINT_CONTRACT['polygon']
+        elif from_chain == 'zksync':
+            new_mint_contract = MINT_CONTRACT['zksync']
+        else:
+            new_mint_contract = MINT_CONTRACT['all']
+
+        contract = web3.eth.contract(address=Web3.to_checksum_address(new_mint_contract), abi=MINT_ABI)
 
         mint_fee = contract.functions.mintPrice().call()
         mint_txn = contract.functions.mint(1)
@@ -205,7 +216,14 @@ def bridge(from_chain, to_chain, private_key):
         account = web3.eth.account.from_key(private_key)
         web3.middleware_onion.inject(geth_poa_middleware, layer=0)
         wallet = account.address
-        contract = web3.eth.contract(address=web3.to_checksum_address(MINT_CONTRACT), abi=MINT_ABI)
+        if from_chain == 'polygon':
+            new_mint_contract = MINT_CONTRACT['polygon']
+        elif from_chain == 'zksync':
+            new_mint_contract = MINT_CONTRACT['zksync']
+        else:
+            new_mint_contract = MINT_CONTRACT['all']
+
+        contract = web3.eth.contract(address=Web3.to_checksum_address(new_mint_contract), abi=MINT_ABI)
 
         module_str = f'Бридж {from_chain} => {to_chain}'
 

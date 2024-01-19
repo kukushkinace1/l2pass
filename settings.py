@@ -8,8 +8,8 @@ RANDOM_WALLETS = True # True / False
 
 COUNT_TX = [5, 6] #от 1 до 2 транзакций
 
-#['polygon', 'fantom', 'arbitrum nova', 'base', 'gnosis', 'optimism', 'moonbeam', 'moonriver', 'celo', 'kava evm', 'fuse', 'mantle']
-FROM_CHAINS = ['polygon', 'fantom', 'arbitrum nova', 'base', 'gnosis', 'optimism', 'moonbeam', 'moonriver', 'celo', 'kava evm', 'fuse', 'mantle']
+#['polygon', 'fantom', 'arbitrum nova', 'base', 'gnosis', 'optimism', 'moonbeam', 'moonriver', 'celo', 'kava evm', 'fuse', 'mantle', 'zksync']
+FROM_CHAINS = ['polygon', 'fantom', 'arbitrum nova', 'base', 'gnosis', 'optimism', 'moonbeam', 'moonriver', 'celo', 'kava evm', 'fuse', 'mantle', 'zksync']
 L2PASS_REFUEL_LIST = {
     'arbitrum':     ['arbitrum nova', 'base', 'gnosis', 'moonbeam', 'moonriver', 'celo', 'kava evm', 'fuse', 'klaytn', 'core', 'opbnb', 'harmony', 'canto'],
     'polygon':      ['arbitrum nova', 'base', 'gnosis', 'moonbeam', 'moonriver', 'celo', 'kava evm', 'fuse', 'klaytn', 'core', 'opbnb', 'harmony', 'canto'],
@@ -22,6 +22,7 @@ L2PASS_REFUEL_LIST = {
     'moonriver':    ['kava evm'],
     'celo':         ['fuse', 'moonbeam', 'gnosis'],
     'kava evm':     ['moonriver'],
+    'zksync':       ['arbitrum', 'polygon', 'fantom', 'kava evm', 'mantle'],
     'fuse':         ['klaytn', 'opbnb'],
     'klaytn':       ['fuse', 'gnosis'],
     'mantle':       ['klaytn', 'kava evm', 'moonbeam'],
@@ -45,4 +46,5 @@ MIN_NATIV = {
     'fuse':             0.7,
     'mantle':           0.2,
     'klaytn':           0.3,
+    'zksync':           0.001,
 }
