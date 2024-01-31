@@ -63,5 +63,5 @@ DATA = {
     'fuse':         {'rpc': ['https://rpc.fuse.io'],            'scan': 'https://explorer.fuse.io/tx',          'token': 'FUSE', 'chain_id': 122},
     'scroll':       {'rpc': ['https://rpc.ankr.com/scroll'],    'scan': 'https://scrollscan.com/tx',            'token': 'ETH', 'chain_id': 534352},
     'kava evm':     {'rpc': ['https://evm.kava.io'],            'scan': 'https://kavascan.com/tx',              'token': 'KAVA', 'chain_id': 2222},
-    'klaytn':       {'rpc': ['https://klaytn.blockpi.network/v1/rpc/public', 'https://rpc.ankr.com/klaytn'],            'scan': 'https://kavascan.com/tx',              'token': 'KAVA', 'chain_id': 2222},
+    'klaytn':       {'rpc': ['https://klaytn.blockpi.network/v1/rpc/public', 'https://rpc.ankr.com/klaytn'],            'scan': 'https://klaytnscope.com/tx',              'token': 'KAVA', 'chain_id': 2222},
 }
